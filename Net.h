@@ -23,6 +23,9 @@ namespace luguang {
         	NativeSocket _nativeSocket;
     	};
 	
+
+	class DataSink;
+
 	class IStream {
     	public:
         	typedef std::function<int32_t(const char* buf, int64_t size)> DataHandler;
@@ -34,5 +37,49 @@ namespace luguang {
         	virtual DataHandler GetDataHandler() = 0;
     	};	
 
+	class IConnectable {
+    	public:
+        	virtual void Connect(const std::string& host, int32_t port) = 0;
+    	};
 
+	template<class ConnectionType>
+    	class BasicServer : public Socket {
+    	public:
+        	typedef std::function<void(IStream* stream)> ConnectHandler;
+        	typedef std::function<void(IStream* stream)> DisconnectHandler;
+
+        	BasicServer() { }
+
+        	virtual int32_t Listen(const std::string& host, int32_t port, int32_t backlog) = 0;
+        	virtual void OnConnect(ConnectHandler handler) = 0;
+        	virtual void OnDisconnec(DisconnectHandler handler) = 0;
+
+        	virtual ConnectionType Accept(int32_t listenfd) = 0;
+    	};
+
+
+	class BasicStream : public IStream, public Socket {
+   	public:
+        	BasicStream() = default;
+        	BasicStream(NativeSocket nativeSocket) : Socket(nativeSocket) {}
+
+        	BasicStream(const BasicStream& stream) = delete;
+
+        	virtual void SetDataSink(DataSink* dataSink) {
+            		_dataSink = dataSink;
+        	}
+
+        	virtual DataSink* GetDataSink() {
+            		return _dataSink;
+        	}
+
+        	virtual const DataSink* GetDataSink() const {
+            		return _dataSink;
+        	}
+
+    	private:
+        	DataSink* _dataSink;
+    	};
+
+	
 }

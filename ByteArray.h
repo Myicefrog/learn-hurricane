@@ -47,7 +47,7 @@ namespace luguang {
 		enum class SeekMode {
 			Set,
 			Forward,
-			BackWard
+			Backward
 		};
 		~IODevice() {}
 	};

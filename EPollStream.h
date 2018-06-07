@@ -14,7 +14,7 @@
 #include <errno.h>
 
 namespace luguang {
-	//class EPollLoop;
+	class EPollLoop;
 	class EPollStream : public BasicStream {
 	public:
 		EPollStream(NativeSocket nativeSocket) :

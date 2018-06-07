@@ -1,5 +1,15 @@
 #pragma once
-#include <NetLinux.h>
+#include "NetLinux.h"
+#include <unistd.h>
+#include <netinet/in.h>
+
+#include "ByteArray.h"
+
+#include <memory>
+#include <string>
+#include <iostream>
+#include <functional>
+
 #include <unistd.h>
 #include <netinet/in.h>
 
@@ -9,7 +19,7 @@ namespace luguang {
 		Socket() : _nativeSocket(0) {}
 		Socket(NativeSocket nativeSocket) : _nativeSocket(nativeSocket) { }
 		virtual ~Socket() {
-			close(_nativeSocket)
+			close(_nativeSocket);
 		}
 		NativeSocket GetNativeSocket() const {
             return _nativeSocket;

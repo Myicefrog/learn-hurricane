@@ -6,7 +6,7 @@
 #include <cstdint>
 #include <functional>
 
-namespace meshy {
+namespace luguang {
     class DataSink {
     public:
         virtual int32_t Write(IStream* stream, const char* buf, int64_t bytes) = 0;

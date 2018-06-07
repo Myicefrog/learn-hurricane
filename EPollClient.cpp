@@ -53,7 +53,7 @@ namespace luguang {
         return nread;
     }
 
-    int32_t EPollClient::Send(const meshy::ByteArray& byteArray) {
+    int32_t EPollClient::Send(const luguang::ByteArray& byteArray) {
         std::cout << "EPollConnection::Send"<<std::endl;
 
         struct epoll_event ev;

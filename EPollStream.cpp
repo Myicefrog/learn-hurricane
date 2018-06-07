@@ -3,6 +3,7 @@
 #include "ByteArray.h"
 
 #include <unistd.h>
+#include <iostream>
 
 namespace luguang {
     int32_t EPollStream::Receive(char* buffer, int32_t bufferSize, int32_t& readSize) {
@@ -17,15 +18,15 @@ namespace luguang {
         return nread;
     }
 
-    int32_t EPollStream::Send(const meshy::ByteArray& byteArray) {
-        LOG(LOG_DEBUG) << "EPollConnection::Send";
+    int32_t EPollStream::Send(const luguang::ByteArray& byteArray) {
+        std::cout << "EPollConnection::Send"<<std::endl;
 
         struct epoll_event ev;
         NativeSocket clientSocket = GetNativeSocket();
 
         if ( EPollLoop::Get()->ModifyEpollEvents(_events | EPOLLOUT, clientSocket) ) {
             // TODO: MARK ERASE
-            LOG(LOG_ERROR) << "FATAL epoll_ctl: mod failed!";
+            //LOG(LOG_ERROR) << "FATAL epoll_ctl: mod failed!";
         }
 
         const char* buf = byteArray.data();
@@ -37,7 +38,7 @@ namespace luguang {
             nwrite = write(clientSocket, buf + size - n, n);
             if (nwrite < n) {
                 if (nwrite == -1 && errno != EAGAIN) {
-                    LOG(LOG_ERROR) << "FATAL write data to peer failed!";
+                    //LOG(LOG_ERROR) << "FATAL write data to peer failed!";
                 }
                 break;
             }

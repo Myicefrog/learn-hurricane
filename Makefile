@@ -1,22 +1,21 @@
-	
 SOURCE = $(wildcard *.cpp)
 OBJS = $(patsubst %.cpp,%.o,$(SOURCE))
 	
-CXX = gcc
+CXX = g++
+INCLUDE = -I.
 
 CFLAGS += -std=c++11
 LDFLAGS += -lm -lpthread
+
+TARGET = learn
 	
-all:bts
-bts:$(OBJS)
-	$(CXX) -Wall $(CFLAGS) ${LDFLAGS} -o $@ $^
+ALL:${OBJS}
+	${CXX} -o  ${TARGET} ${OBJS} ${LDFLAGS}
 
 .PHONY:clean
 clean:
-	rm -f *.o *.d bts
+	rm -f *.o learn
 
-include $(SOURCE:.cpp=.d)	
-	
 %.o:%.cpp
-	$(CXX) -Wall $(CFLAGS) -c $< -o $@
+	${CXX} -Wall ${CFLAGS} ${INCLUDE} -c $< -o $@
 

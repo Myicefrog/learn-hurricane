@@ -17,7 +17,7 @@ namespace luguang {
     int32_t EPollServer::_Bind(const std::string& host, int32_t port) {
         int32_t listenfd;
         if ((listenfd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-            LOG(LOG_ERROR) << "Create socket failed!";
+            //LOG(LOG_ERROR) << "Create socket failed!";
             exit(1);
         }
 
@@ -36,7 +36,7 @@ namespace luguang {
 
         int32_t errorCode = bind(listenfd, (struct sockaddr*)&addr, sizeof(addr));
         if (errorCode < 0) {
-            LOG(LOG_ERROR) << "Bind socket failed!";
+            //LOG(LOG_ERROR) << "Bind socket failed!";
             assert(0);
             return errorCode;
         }
@@ -51,7 +51,7 @@ namespace luguang {
 
         int32_t errorCode = listen(listenfd, backlog);
         if (-1 == errorCode) {
-            LOG(LOG_ERROR) << "Listen socket failed!";
+            //LOG(LOG_ERROR) << "Listen socket failed!";
             assert(0);
             return errorCode;
         }
@@ -59,7 +59,7 @@ namespace luguang {
         errorCode = EPollLoop::Get()->AddEpollEvents(EPOLLIN, listenfd);
 
         if (errorCode == -1) {
-            LOG(LOG_ERROR) << "FATAL epoll_ctl: listen_sock!";
+            //LOG(LOG_ERROR) << "FATAL epoll_ctl: listen_sock!";
             assert(0);
             return errorCode;
         }

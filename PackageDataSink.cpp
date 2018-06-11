@@ -5,7 +5,7 @@
 //#include "rest/HttpRequest.h"
 //#include "rest/HttpResponse.h"
 
-namespace meshy {
+namespace luguang {
     PackageDataSink::PackageDataSink(EventQueue* eventQueue) : _eventQueue(eventQueue), _totalSize(0) {
         _threadPool = new ThreadPool<BaseEvent>(10, [&](BaseEvent& event) {
             std::cout << "Thread onEvent sink!"<< std::endl;

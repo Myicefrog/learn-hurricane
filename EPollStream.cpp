@@ -26,7 +26,7 @@ namespace luguang {
 
         if ( EPollLoop::Get()->ModifyEpollEvents(_events | EPOLLOUT, clientSocket) ) {
             // TODO: MARK ERASE
-            //LOG(LOG_ERROR) << "FATAL epoll_ctl: mod failed!";
+            std::cout << "FATAL epoll_ctl: mod failed!"<< std::endl;
         }
 
         const char* buf = byteArray.data();
@@ -38,7 +38,7 @@ namespace luguang {
             nwrite = write(clientSocket, buf + size - n, n);
             if (nwrite < n) {
                 if (nwrite == -1 && errno != EAGAIN) {
-                    //LOG(LOG_ERROR) << "FATAL write data to peer failed!";
+                    std::cout << "FATAL write data to peer failed!"<<std::endl;
                 }
                 break;
             }

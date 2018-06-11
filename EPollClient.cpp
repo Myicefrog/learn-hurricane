@@ -73,7 +73,7 @@ namespace luguang {
             nwrite = write(clientSocket, buf + size - n, n);
             if (nwrite < n) {
                 if (nwrite == -1 && errno != EAGAIN) {
-                    std::cout << "FATAL write data to peer failed!"<<std::endl;
+                    std::cout << "clinet FATAL write data to peer failed!"<<std::endl;
                 }
                 break;
             }
